@@ -1,2 +1,5 @@
-# grant-voting-system
-Complete voting system for grant applications with email notifications
+# Grant Voting System
+
+A secure voting platform for grant applications, enabling committee members to vote and receive email notifications. Built with **Flask (Python)** and integrated with **Laravel (PHP)**.
+
+## Project Structure
