@@ -42,20 +42,20 @@ php artisan make:middleware AdminMiddleware
 # Copy the PHP code from my Laravel integration artifact into respective files
 # Add routes to routes/web.php:
 
-Route::prefix('admin/voting')->middleware(['auth', 'admin'])->name('voting.')->group(function () {
-    Route::get('/', [GrantVotingController::class, 'index'])->name('index');
-    Route::get('/create', [GrantVotingController::class, 'createApplication'])->name('create');
-    Route::post('/store', [GrantVotingController::class, 'storeApplication'])->name('store');
-    Route::get('/results/{id}', [GrantVotingController::class, 'showResults'])->name('results');
-    Route::get('/members', [GrantVotingController::class, 'manageMembers'])->name('members');
+- Route::prefix('admin/voting')->middleware(['auth', 'admin'])->name('voting.')->group(function () {
+-    Route::get('/', [GrantVotingController::class, 'index'])->name('index');
+-    Route::get('/create', [GrantVotingController::class, 'createApplication'])->name('create');
+-    Route::post('/store', [GrantVotingController::class, 'storeApplication'])->name('store');
+-    Route::get('/results/{id}', [GrantVotingController::class, 'showResults'])->name('results');
+-    Route::get('/members', [GrantVotingController::class, 'manageMembers'])->name('members');
     
-    Route::prefix('api')->name('api.')->group(function () {
-        Route::get('/members', [GrantVotingController::class, 'getMembers'])->name('members.get');
-        Route::post('/members', [GrantVotingController::class, 'storeMember'])->name('members.store');
-        Route::put('/members/{id}', [GrantVotingController::class, 'updateMember'])->name('members.update');
-        Route::delete('/members/{id}', [GrantVotingController::class, 'deactivateMember'])->name('members.delete');
-    });
-});
+-    Route::prefix('api')->name('api.')->group(function () {
+-        Route::get('/members', [GrantVotingController::class, 'getMembers'])->name('members.get');
+-        Route::post('/members', [GrantVotingController::class, 'storeMember'])->name('members.store');
+-        Route::put('/members/{id}', [GrantVotingController::class, 'updateMember'])->name('members.update');
+-        Route::delete('/members/{id}', [GrantVotingController::class, 'deactivateMember'])->name('members.delete');
+-    });
+- });
 
 # Create Blade templates using my template artifact code
 
