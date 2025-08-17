@@ -98,59 +98,57 @@ server {
 
 
 # Step 5: Testing Checklist
-# ✅ Basic functionality:
+### ✅ Basic functionality:
 
-#  Create grant application
-#  Verify emails sent to members
-#  Test voting process
-#  Check rejection reasons
-#  View results dashboard
+####  Create grant application
+####  Verify emails sent to members
+####  Test voting process
+####  Check rejection reasons
+####  View results dashboard
 
-# ✅ Member management:
+### ✅ Member management:
 
-#  Add new member
-#  Edit existing member
-#  Deactivate member
-#  Verify email updates
+####  Add new member
+####  Edit existing member
+####  Deactivate member
+####  Verify email updates
 
-# ✅ Security:
+### ✅ Security:
 
-#  Unique voting tokens work
-#  Deadline enforcement works
-#  Admin access only
+####  Unique voting tokens work
+####  Deadline enforcement works
+####  Admin access only
 
 # Step 6: Key Features Delivered
-# 🎯 Everything you requested:
 
-# ✅ Email notifications to all committee members
-# ✅ Accept/Reject voting with mandatory rejection reasons
-# ✅ Comments and discussion system
-# ✅ Easy member management (add/edit/replace members)
-# ✅ Voting results dashboard
-# ✅ Integration with Laravel admin panel
-# ✅ Persian text support ready
-# ✅ Unique reference codes (CA######)
-# ✅ Deadline management
-# ✅ All grant types supported
+#### ✅ Email notifications to all committee members
+#### ✅ Accept/Reject voting with mandatory rejection reasons
+#### ✅ Comments and discussion system
+#### ✅ Easy member management (add/edit/replace members)
+#### ✅ Voting results dashboard
+#### ✅ Integration with Laravel admin panel
+#### ✅ Persian text support ready
+#### ✅ Unique reference codes (CA######)
+#### ✅ Deadline management
+#### ✅ All grant types supported
 
 # Step 7: File Structure Summary
 
+- The Laravel Project/
+- ├── app/
+- │   ├── Http/Controllers/GrantVotingController.php
+- │   ├── Services/GrantVotingService.php
+- │   └── Http/Middleware/AdminMiddleware.php
+- ├── resources/views/admin/voting/
+- │   ├── index.blade.php
+- │   ├── create-application.blade.php
+- │   ├── results.blade.php
+- │   └── members.blade.php
+- ├── routes/web.php (updated)
+- └── config/services.php (updated)
 
-The Laravel Project/
-├── app/
-│   ├── Http/Controllers/GrantVotingController.php
-│   ├── Services/GrantVotingService.php
-│   └── Http/Middleware/AdminMiddleware.php
-├── resources/views/admin/voting/
-│   ├── index.blade.php
-│   ├── create-application.blade.php
-│   ├── results.blade.php
-│   └── members.blade.php
-├── routes/web.php (updated)
-└── config/services.php (updated)
-
-Separate Python API/
-├── app.py (main Flask application)
-├── .env (configuration)
-├── requirements.txt
-└── voting_system.db (SQLite database)
+- Separate Python API/
+- ├── app.py (main Flask application)
+- ├── .env (configuration)
+- ├── requirements.txt
+- └── voting_system.db (SQLite database)
