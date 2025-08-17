@@ -138,6 +138,39 @@ def send_voting_notification(application_id):
     db.session.commit()
 
 # API Routes
+@app.route('/')
+def home():
+    return '''
+    <html>
+    <head>
+        <title>Grant Voting System</title>
+        <style>
+            body { font-family: Arial, sans-serif; padding: 40px; }
+            h1 { color: #005a9c; }
+            ul { line-height: 1.8; }
+        </style>
+    </head>
+    <body>
+        <h1>Grant Voting System</h1>
+        <p>✅ Server is running!</p>
+        <ul>
+            <li><a href="/api/members">View Voting Members (JSON)</a></li>
+            <li><a href="/health">Health Check (JSON)</a></li>
+        </ul>
+        <p>Use API routes for integration. See <code>documentation/</code> for details.</p>
+    </body>
+    </html>
+    '''
+
+@app.route('/health')
+def health():
+    """Health check endpoint for monitoring"""
+    return jsonify({
+        'status': 'healthy',
+        'database': 'connected',
+        'timestamp': datetime.utcnow().isoformat()
+    })
+
 @app.route('/api/members', methods=['GET'])
 def get_members():
     """Get all voting members"""
@@ -479,35 +512,129 @@ def get_voting_results(app_id):
     return jsonify(results)
 
 # Initialize database
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
     
-    # Add default voting members if none exist
-    if VotingMember.query.count() == 0:
-        default_members = [
-            {'name': 'Action Chair', 'position': 'Action Chair', 'email': 'chair@example.com'},
-            {'name': 'Action Vice Chair', 'position': 'Action Vice Chair', 'email': 'vicechair@example.com'},
-            {'name': 'Grant Holder Scientific Representative', 'position': 'Grant Holder Scientific Representative', 'email': 'scientific@example.com'},
-            {'name': 'Science Communication Coordinator', 'position': 'Science Communication Coordinator', 'email': 'communication@example.com'},
-            {'name': 'Grant Awarding Coordinator', 'position': 'Grant Awarding Coordinator', 'email': 'awarding@example.com'},
-            {'name': 'WG1 Leader', 'position': 'WG1 Leader', 'email': 'wg1leader@example.com'},
-            {'name': 'WG1 Vice Leader', 'position': 'WG1 Vice Leader', 'email': 'wg1vice@example.com'},
-            {'name': 'WG2 Leader', 'position': 'WG2 Leader', 'email': 'wg2leader@example.com'},
-            {'name': 'WG2 Vice Leader', 'position': 'WG2 Vice Leader', 'email': 'wg2vice@example.com'},
-            {'name': 'WG3 Leader', 'position': 'WG3 Leader', 'email': 'wg3leader@example.com'},
-            {'name': 'WG3 Vice Leader', 'position': 'WG3 Vice Leader', 'email': 'wg3vice@example.com'},
-            {'name': 'WG4 Leader', 'position': 'WG4 Leader', 'email': 'wg4leader@example.com'},
-            {'name': 'WG4 Vice Leader', 'position': 'WG4 Vice Leader', 'email': 'wg4vice@example.com'},
-            {'name': 'WG5 Leader', 'position': 'WG5 Leader', 'email': 'wg5leader@example.com'},
-            {'name': 'WG5 Vice Leader', 'position': 'WG5 Vice Leader', 'email': 'wg5vice@example.com'},
-        ]
+#     # Add default voting members if none exist
+#     if VotingMember.query.count() == 0:
+#         default_members = [
+#             {'name': 'Action Chair', 'position': 'Action Chair', 'email': 'chair@example.com'},
+#             {'name': 'Action Vice Chair', 'position': 'Action Vice Chair', 'email': 'vicechair@example.com'},
+#             {'name': 'Grant Holder Scientific Representative', 'position': 'Grant Holder Scientific Representative', 'email': 'scientific@example.com'},
+#             {'name': 'Science Communication Coordinator', 'position': 'Science Communication Coordinator', 'email': 'communication@example.com'},
+#             {'name': 'Grant Awarding Coordinator', 'position': 'Grant Awarding Coordinator', 'email': 'awarding@example.com'},
+#             {'name': 'WG1 Leader', 'position': 'WG1 Leader', 'email': 'wg1leader@example.com'},
+#             {'name': 'WG1 Vice Leader', 'position': 'WG1 Vice Leader', 'email': 'wg1vice@example.com'},
+#             {'name': 'WG2 Leader', 'position': 'WG2 Leader', 'email': 'wg2leader@example.com'},
+#             {'name': 'WG2 Vice Leader', 'position': 'WG2 Vice Leader', 'email': 'wg2vice@example.com'},
+#             {'name': 'WG3 Leader', 'position': 'WG3 Leader', 'email': 'wg3leader@example.com'},
+#             {'name': 'WG3 Vice Leader', 'position': 'WG3 Vice Leader', 'email': 'wg3vice@example.com'},
+#             {'name': 'WG4 Leader', 'position': 'WG4 Leader', 'email': 'wg4leader@example.com'},
+#             {'name': 'WG4 Vice Leader', 'position': 'WG4 Vice Leader', 'email': 'wg4vice@example.com'},
+#             {'name': 'WG5 Leader', 'position': 'WG5 Leader', 'email': 'wg5leader@example.com'},
+#             {'name': 'WG5 Vice Leader', 'position': 'WG5 Vice Leader', 'email': 'wg5vice@example.com'},
+#         ]
         
-        for member_data in default_members:
-            member = VotingMember(**member_data)
-            db.session.add(member)
+#         for member_data in default_members:
+#             member = VotingMember(**member_data)
+#             db.session.add(member)
         
-        db.session.commit()
+#         db.session.commit()
 
 if __name__ == '__main__':
+    with app.app_context():
+        # Create all database tables
+        db.create_all()
+        
+        # Add default voting members if none exist
+        if VotingMember.query.count() == 0:
+            default_members = [
+                {
+                    'name': 'Prof Katrin SCHLUND',
+                    'position': 'Action Chair',
+                    'email': 'katrin.schlund@slavistik.uni-halle.de'
+                },
+                {
+                    'name': 'Prof Vladimir KARABALIĆ',
+                    'position': 'Action Vice Chair',
+                    'email': 'vkarabalic@ffos.hr'
+                },
+                {
+                    'name': 'Prof Vladimir KARABALIĆ',
+                    'position': 'Grant Holder Scientific Representative',
+                    'email': 'vkarabalic@ffos.hr'
+                },
+                {
+                    'name': 'Dr Gokhan OZKAN',
+                    'position': 'Science Communication Coordinator',
+                    'email': 'Gkhnozkan57@gmail.com'
+                },
+                {
+                    'name': 'Prof Hana BERGEROVA',
+                    'position': 'Grant Awarding Coordinator',
+                    'email': 'Hana.Bergerova@ujep.cz'
+                },
+                {
+                    'name': 'Prof Carmen MELLADO BLANCO',
+                    'position': 'WG1 Leader',
+                    'email': 'c.mellado@usc.es'
+                },
+                {
+                    'name': 'Roberta Rada',
+                    'position': 'WG1 Vice Leader',
+                    'email': 'rada.roberta@gmail.com'
+                },
+                {
+                    'name': 'Dr Nikolche MICKOSKI',
+                    'position': 'WG2 Leader',
+                    'email': 'nmickoski@manu.edu.mk'
+                },
+                {
+                    'name': 'Max Silbersztein',
+                    'position': 'WG2 Vice Leader',
+                    'email': 'max.silberztein@gmail.com'
+                },
+                {
+                    'name': 'Prof Vladimir KARABALIĆ',
+                    'position': 'WG3 Leader',
+                    'email': 'vkarabalic@ffos.hr'
+                },
+                {
+                    'name': 'Monika Hornacek-Banasova',
+                    'position': 'WG3 Vice Leader',
+                    'email': 'monika.hornacek.banasova@ucm.sk'
+                },
+                {
+                    'name': 'Dr Tamas KISPAL',
+                    'position': 'WG4 Leader',
+                    'email': 'tamas.kispal@phil.uni-goettingen.de'
+                },
+                {
+                    'name': 'Çiler Hatipoğlu',
+                    'position': 'WG4 Vice Leader',
+                    'email': 'ciler.hatipoglu@gmail.com'
+                },
+                {
+                    'name': 'Dr. Hiwa Asadpour',
+                    'position': 'WG5 Leader',
+                    'email': 'asadpourhiwa@gmail.com'
+                },
+                {
+                    'name': 'Pedro Ivorra Ordines',
+                    'position': 'WG5 Vice Leader',
+                    'email': 'pivorra@unizar.es'
+                }
+            ]
+            
+            for member_data in default_members:
+                member = VotingMember(**member_data)
+                db.session.add(member)
+            
+            db.session.commit()
+            print("✅ Default voting members added to database.")
+        
+        print("✅ Database initialized.")
+
+    # Run the Flask app
     app.run(debug=True)
